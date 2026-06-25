@@ -98,12 +98,12 @@ async fn send_imip(
     let logo_cid = format!("logo.{}@{sender_domain}", now());
     let logo = if let Some(logo) = &logo {
         MimePart::new(
-            ContentType::new(logo.content_type.as_ref()),
+            ContentType::new(logo.content_type.as_ref()).attribute("name", "logo.png"),
             BodyPart::Binary(logo.contents.as_slice().into()),
         )
     } else {
         MimePart::new(
-            ContentType::new("image/png"),
+            ContentType::new("image/png").attribute("name", "logo.png"),
             BodyPart::Binary(DEFAULT_LOGO_BASE64.as_bytes().into()),
         )
         .transfer_encoding("base64")
